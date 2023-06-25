@@ -1,0 +1,9 @@
+library(skimr)
+skim(credit_risk_dataset)
+str(credit_risk_dataset)
+describe(credit_risk_dataset)
+plot_num(credit_risk_dataset)
+freq(credit_risk_dataset)
+basic_eda(credit_risk_dataset)
+
+CrossTable(credit_risk_dataset$loan_grade, credit_risk_dataset$loan_status, prop.r = TRUE, prop.c = FALSE, prop.t  = FALSE, prop.chisq = FALSE)
