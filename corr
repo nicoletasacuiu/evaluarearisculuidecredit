@@ -1,0 +1,4 @@
+numeric_data <- credit_risk_dataset %>%
+select(person_age, person_income, loan_amnt, loan_int_rate, loan_percent_income)
+cor_matrix <- cor(numeric_data)
+print(cor_matrix)
