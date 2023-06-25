@@ -1,0 +1,13 @@
+library(C50)
+model <- C5.0(loan_status ~ ., data = train_data)
+train_predictions <- predict(model, train_data)
+train_accuracy <- mean(train_predictions == train_data$loan_status)
+train_accuracy
+test_predictions <- predict(model, test_data)
+confusion_matrix <- table(test_predictions, test_data$loan_status)
+confusion_matrix
+plot(model)
+sensitivity <- confusion_matrix[2, 2] / (confusion_matrix[2, 2] + confusion_matrix[2, 1])
+specificity <- confusion_matrix[1, 1] / (confusion_matrix[1, 1] + confusion_matrix[1, 2])
+sensitivity
+specificity
