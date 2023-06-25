@@ -1,0 +1,15 @@
+set.seed(123)  # Pentru reproducibilitate
+train_indices <- createDataPartition(credit_risk_dataset$loan_status, p = 0.7, list = FALSE)
+train_data <- credit_risk_dataset[train_indices, ]
+test_data <- credit_risk_dataset[-train_indices, ]
+model <- glm(loan_status ~ ., data = train_data, family = "binomial")
+summary(model)
+predictions <- predict(model, newdata = test_data, type = "response")
+confusion_matrix <- table(test_data$loan_status, predictions > 0.5)
+accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
+sensitivity <- confusion_matrix[2, 2] / (confusion_matrix[2, 2] + confusion_matrix[2, 1])
+specificity <- confusion_matrix[1, 1] / (confusion_matrix[1, 1] + confusion_matrix[1, 2])
+print(confusion_matrix)
+accuracy
+sensitivity
+specificity
