@@ -1,0 +1,31 @@
+#import baza de date
+credit_risk_dataset <- read_csv("credit_risk_dataset.csv",
+col_types = cols(loan_grade = col_factor(levels = c("A", "B", "C", "D", "E", "F", "G")),
+loan_int_rate = col_number(), 
+loan_status = col_factor(levels = c("1", "0")), loan_percent_income = col_number(),
+cb_person_default_on_file = col_factor(levels = c("Y", "N"))))
+view(credit_risk_dataset)
+summary(credit_risk_dataset)
+
+#eliminarea randurilor cu valori lipsa
+credit_risk_dataset <- na.omit(credit_risk_dataset)
+
+summary(credit_risk_dataset)
+
+#eliminarea valorilor aberante
+mean_age <- mean(credit_risk_dataset$person_age)
+sd_age <- sd(credit_risk_dataset$person_age)
+credit_risk_dataset <- subset(credit_risk_dataset, person_age > (mean_age - 2* sd_age) & person_age < (mean_age + 2* sd_age))
+
+mean_person_emp_length <- mean(credit_risk_dataset$person_emp_length)
+sd_person_emp_length <- sd(credit_risk_dataset$person_emp_length)
+credit_risk_dataset <- subset(credit_risk_dataset, person_emp_length > (mean_person_emp_length - 2* sd_person_emp_length) & person_emp_length < (mean_person_emp_length + 2* sd_person_emp_length))
+
+mean_person_income <- mean(credit_risk_dataset$person_income)
+sd_person_income <- sd(credit_risk_dataset$person_income)
+credit_risk_dataset <- subset (credit_risk_dataset, person_income > (mean_person_income -2* sd_person_income) & person_income < (mean_person_income + 2* sd_person_income) )
+
+#eliminarea valorilor egale cu 0 din variabila person_emp_length
+library(dplyr)
+credit_risk_dataset <- credit_risk_dataset %>%
+filter(person_emp_length != 0)
