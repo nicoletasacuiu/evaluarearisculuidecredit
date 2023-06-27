@@ -6,4 +6,6 @@ plot_num(credit_risk_dataset)
 freq(credit_risk_dataset)
 basic_eda(credit_risk_dataset)
 
+
+library(gmodels)
 CrossTable(credit_risk_dataset$loan_grade, credit_risk_dataset$loan_status, prop.r = TRUE, prop.c = FALSE, prop.t  = FALSE, prop.chisq = FALSE)
